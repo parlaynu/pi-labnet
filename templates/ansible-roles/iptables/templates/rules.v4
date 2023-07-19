@@ -1,0 +1,17 @@
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+-A FORWARD -i {{ wired_iface }} -o {{ wifi_iface }} -j ACCEPT
+-A FORWARD -i {{ wifi_iface }} -o {{ wired_iface }} -p tcp --dport 22 -j ACCEPT
+-A FORWARD -i {{ wifi_iface }} -o {{ wired_iface }} -m state --state RELATED,ESTABLISHED -j ACCEPT
+COMMIT
+
+
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -o {{ wifi_iface }} -j MASQUERADE
+COMMIT

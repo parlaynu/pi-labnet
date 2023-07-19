@@ -1,0 +1,12 @@
+- name: static interface
+  lineinfile:
+    path: /etc/dhcpcd.conf
+    line: interface {{ wired_iface }}
+    regexp: '^interface'
+
+- name: static ip address
+  lineinfile:
+    path: /etc/dhcpcd.conf
+    line: static ip_address={{ wired_address }}
+    regexp: '^static ip_address='
+

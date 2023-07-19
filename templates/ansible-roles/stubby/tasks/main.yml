@@ -1,0 +1,17 @@
+## install stubby
+
+- name: install stubby
+  apt:
+    name: stubby
+    state: present
+
+## install the configuration file
+
+- name: install stubby config
+  template:
+    src: stubby.yml
+    dest: /etc/stubby/stubby.yml
+    owner: root
+    group: root
+    mode: 0644
+

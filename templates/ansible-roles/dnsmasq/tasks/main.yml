@@ -1,0 +1,23 @@
+# NOTE: once installed, stop dnsmasq and don't restart after config is installed 
+#  otherwise you'll be running a second DHCP server on your network with different
+#  configurations. Wait until this is removed from the network and restarted
+#  to have dnsmasq running.
+
+- name: install dnsmasq
+  apt:
+    name: dnsmasq
+    state: present
+
+- name: stop dnsmasq
+  systemd:
+    state: stopped
+    name: dnsmasq
+
+- name: install dnsmasq config
+  template:
+    src: dnsmasq.conf
+    dest: /etc/dnsmasq.d/dnsmasq.conf
+    owner: root
+    group: root
+    mode: 0644
+
